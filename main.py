@@ -72,7 +72,26 @@ def main():
     device.shell("input keyevent 3")
     # For long pressing the app icons
     print(device.shell("wm density"))
-    # device.shell("input touchscreen swipe 170 187 170 187 2000")
+    device.shell("input touchscreen swipe 200 1700 200 1700 2000")
+    sleep(2)
+    result = device.screencap()
+    with open(f"./images/long_press_1.png", "wb") as fp:
+        fp.write(result)
+    device.shell("input keyevent 3")
+
+    device.shell("input touchscreen swipe 350 1700 350 1700 2000")
+    sleep(2)
+    result = device.screencap()
+    with open(f"./images/long_press_2.png", "wb") as fp:
+        fp.write(result)
+    device.shell("input keyevent 3")
+
+    device.shell("input touchscreen swipe 500 1700 500 1700 2000")
+    sleep(2)
+    result = device.screencap()
+    with open(f"./images/long_press_3.png", "wb") as fp:
+        fp.write(result)
+    device.shell("input keyevent 3")
 
     # Check the wifi status of the emulator
     print(device.shell("dumpsys wifi | grep 'Wi-Fi is'"))
@@ -247,6 +266,18 @@ def createPDF():
     pdf.cell(200, 20,
              txt="2. Go to the home menu and long tap the first 3 apps available on the launcher, all via ADB.", ln=1,
              align="L")
+    pdf.multi_cell(200, 10, txt="Command: adb shell input touchscreen swipe 200 1700 200 1700 2000")
+    pdf.image(f"./images/long_press_1.png", w=60)
+    pdf.cell(200, 10,
+             txt="Command: adb shell input keyevent 3",
+             ln=1, align="L")
+    pdf.multi_cell(200, 10, txt="Command: adb shell input touchscreen swipe 350 1700 350 1700 2000")
+    pdf.image(f"./images/long_press_2.png", w=60)
+    pdf.cell(200, 10,
+             txt="Command: adb shell input keyevent 3",
+             ln=1, align="L")
+    pdf.multi_cell(200, 10, txt="Command: adb shell input touchscreen swipe 500 1700 500 1700 2000")
+    pdf.image(f"./images/long_press_3.png", w=60)
 
     pdf.cell(200, 20, txt="3. Using ADB, verify the device's current WiFi status (on/off) ", ln=1, align="L")
     pdf.cell(200, 10, txt="Command: dumpsys wifi | grep 'Wi-Fi is'", ln=1, align="L")
