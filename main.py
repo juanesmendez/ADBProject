@@ -9,42 +9,37 @@ APK_NAME = "app-release.apk"
 ANDMIN = "com.andminuniandes/com.interfaz.MainActivity"
 
 
-def main():
-    img_id = 1
+def take_screenshot(device, file_name):
+    result = device.screencap()
+    with open(f"./images/{file_name}.png", "wb") as fp:
+        fp.write(result)
 
+
+def main():
     # Default is "127.0.0.1" and 5037
     client = AdbClient(host="127.0.0.1", port=5037)
     device = client.device("emulator-5554")
 
     # Screenshot of the homescreen
-    result = device.screencap()
-    with open(f"./images/home_1.png", "wb") as fp:
-        fp.write(result)
-
+    take_screenshot(device, "home_1")
 
     # Launch all app menu
     device.shell("input tap 540 1550")
     sleep(1)
     # Screenshot of all app menu without apk installed
-    result = device.screencap()
-    with open(f"./images/apk_uninstalled.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "apk_uninstalled")
 
     device.install(APK_NAME)
     sleep(4)
     #Screenshot of all app menu with apk installed
-    result = device.screencap()
-    with open(f"./images/apk_installed.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "apk_installed")
 
     sleep(1)
     # Launch the installed app
     device.shell(f"am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n {ANDMIN}")
     sleep(1)
     # Screenshot of AndMin App open
-    result = device.screencap()
-    with open(f"./images/andmin.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "andmin")
 
     sleep(1)  # Sleep, so that there is time to take the screenshot if the command is delayed
     device.shell("input keyevent 3")
@@ -55,16 +50,12 @@ def main():
     # print(ans.split("\n"))
 
     # Screenshot of the homescreen
-    result = device.screencap()
-    with open(f"./images/home_2.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "home_2")
 
     # Launches an app (Check if I wanna open Google Maps)
     device.shell(f"am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n {GOOGLE_MAPS_ACTIVITY}")
     sleep(2)  # Sleep, so that there is time to take the screenshot if the command is delayed
-    result = device.screencap()
-    with open(f"./images/google_maps_1.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "google_maps_1")
 
     sleep(1)
 
@@ -74,23 +65,20 @@ def main():
     print(device.shell("wm density"))
     device.shell("input touchscreen swipe 200 1700 200 1700 2000")
     sleep(2)
-    result = device.screencap()
-    with open(f"./images/long_press_1.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "long_press_1")
+
     device.shell("input keyevent 3")
 
     device.shell("input touchscreen swipe 350 1700 350 1700 2000")
     sleep(2)
-    result = device.screencap()
-    with open(f"./images/long_press_2.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "long_press_2")
+
     device.shell("input keyevent 3")
 
     device.shell("input touchscreen swipe 500 1700 500 1700 2000")
     sleep(2)
-    result = device.screencap()
-    with open(f"./images/long_press_3.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "long_press_3")
+
     device.shell("input keyevent 3")
 
     # Check the wifi status of the emulator
@@ -98,18 +86,15 @@ def main():
 
     # Activating device rotation lock
     device.shell("input touchscreen swipe 400 20 400 800 1000")
-    result = device.screencap()
-    with open(f"./images/rotation_lock_1.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "rotation_lock_1")
 
     sleep(1)
     print(device.shell(
         "content insert --uri content://settings/system --bind name:s:accelerometer_rotation --bind value:i:0"))
     # Screenshot of lock working
     sleep(2)
-    result = device.screencap()
-    with open(f"./images/rotation_lock_2.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "rotation_lock_2")
+
     sleep(1)
     device.shell("input keyevent 3")
     sleep(2)
@@ -117,75 +102,55 @@ def main():
     # Launch the contacts app and add a new contact
     device.shell("input keyevent 207")
     sleep(1)  # Sleep, so that there is time to take the screenshot if the command is delayed
-    result = device.screencap()
-    with open(f"./images/contacts_1.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "contacts_1")
 
     device.shell(
         "am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name 'Bo Lawson' -e phone 123456789")
     device.shell("input keyevent 122")
     sleep(2)  # Sleep, so that there is time to take the screenshot if the command is delayed
-    result = device.screencap()
-    with open(f"./images/contacts_2.png", "wb") as fp:
-        fp.write(result)
-
+    take_screenshot(device, "contacts_2")
 
     print(device.shell("wm size"))
     device.shell("input tap 900 80")
     sleep(2)
-    result = device.screencap()
-    with open(f"./images/contacts_3.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "contacts_3")
 
     device.shell("input keyevent 4")
     sleep(1)
-    result = device.screencap()
-    with open(f"./images/contacts_4.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "contacts_4")
 
     device.shell("input keyevent 3")
 
     # QUESTION 2
     #Launch first app available in home screen
     sleep(1)
-    result = device.screencap()
-    with open(f"./images/home_3.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "home_3")
 
     # Launches an app (Check if I wanna open Google Maps)
     device.shell(f"am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n {GOOGLE_MAPS_ACTIVITY}")
     sleep(2)
-    result = device.screencap()
-    with open(f"./images/google_maps_2.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "google_maps_2")
 
     # Lower device volume
     device.shell("input keyevent 25")
     device.shell("input keyevent 25")
-    result = device.screencap()
-    with open(f"./images/volume.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "volume")
 
     sleep(4)
     # Launch any app with text input and write my name (Telephone)
     device.shell(f"am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n {PHONE}")
     sleep(2)
-    result = device.screencap()
-    with open(f"./images/phone.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "phone")
 
     # Input name
     device.shell("input tap 500 90")
     sleep(1)
-    result = device.screencap()
-    with open(f"./images/phone_2.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "phone_2")
 
     device.shell("input text 'Juan Esteban Mendez'")
     sleep(3)
-    result = device.screencap()
-    with open(f"./images/phone_3.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "phone_3")
+
     # Turn bluetooth on (It is not supported on emulator)
     # The following line must be uncommented when the script is run using a real device
 
@@ -194,28 +159,20 @@ def main():
     # Launch contacts app and add a new contact
     device.shell("input keyevent 207")
     sleep(2)
-    result = device.screencap()
-    with open(f"./images/contacts_5.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "contacts_5")
 
     device.shell(
         "am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name 'Pedro Rosales' -e phone 3112142706")
     sleep(2)
-    result = device.screencap()
-    with open(f"./images/contacts_6.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "contacts_6")
 
     device.shell("input tap 900 80")
     sleep(2)
-    result = device.screencap()
-    with open(f"./images/contacts_7.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "contacts_7")
 
     device.shell("input keyevent 4")
     sleep(2)
-    result = device.screencap()
-    with open(f"./images/contacts_8.png", "wb") as fp:
-        fp.write(result)
+    take_screenshot(device, "contacts_8")
 
     device.shell("input keyevent 3")
 
@@ -225,11 +182,7 @@ def main():
     device.shell("input tap 540 1550")
     sleep(1)
     # Screenshot of all app menu without apk installed
-    result = device.screencap()
-    with open(f"./images/apk_uninstalled_2.png", "wb") as fp:
-        fp.write(result)
-
-
+    take_screenshot(device, "apk_uninstalled_2")
 
 
 def createPDF():
