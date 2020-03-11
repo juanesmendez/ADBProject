@@ -1,12 +1,3 @@
-# from ppadb.client import Client as AdbClient
-#
-# client = AdbClient(host="127.0.0.1", port=5037)
-# device = client.device("emulator-5554")
-# result = device.screencap()
-#
-# with open("screen.png", "wb") as fp:
-#     fp.write(result)
-
 from fpdf import FPDF
 from ppadb.client import Client as AdbClient
 from time import sleep
@@ -177,9 +168,11 @@ def main():
     with open(f"./images/phone_3.png", "wb") as fp:
         fp.write(result)
     # Turn bluetooth on (It is not supported on emulator)
+    # The following line must be uncommented when the script is run using a real device
+
+    #device.shell("am start -a android.bluetooth.adapter.action.REQUEST_ENABLE")
 
     # Launch contacts app and add a new contact
-
     device.shell("input keyevent 207")
     sleep(2)
     result = device.screencap()
@@ -234,10 +227,10 @@ def createPDF():
     pdf.cell(200, 10, txt="1. Install an android apk through ADB on either an emulator or an actual device", ln=1,
              align="L")
     pdf.image(f"./images/home_1.png", w=60)
-    pdf.cell(200, 5, txt="Command: adb install app-release.apk", ln=1, align="L")
+    pdf.cell(200, 10, txt="Command: adb install app-release.apk", ln=1, align="L")
     pdf.image(f"./images/apk_uninstalled.png", w=60)
     pdf.image(f"./images/apk_installed.png", w=60)
-    pdf.multi_cell(200, 5, txt="Command: adb am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n com.andminuniandes/com.interfaz.MainActivity")
+    pdf.multi_cell(200, 10, txt="Command: adb shell am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n com.andminuniandes/com.interfaz.MainActivity")
     pdf.image(f"./images/andmin.png", w=60)
 
     pdf.cell(200, 20, txt="QUESTION 1", ln=1, align="L")
@@ -247,7 +240,7 @@ def createPDF():
              txt="Command: adb shell input keyevent 3",
              ln=1, align="L")
     pdf.image(f"./images/home_2.png", w=60)
-    pdf.multi_cell(200, 5,
+    pdf.multi_cell(200, 10,
              txt="Command: adb shell am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n com.google.android.apps.maps/com.google.android.maps.MapsActivity")
     pdf.image(f"./images/google_maps_1.png", w=60)
 
@@ -256,22 +249,24 @@ def createPDF():
              align="L")
 
     pdf.cell(200, 20, txt="3. Using ADB, verify the device's current WiFi status (on/off) ", ln=1, align="L")
+    pdf.cell(200, 10, txt="Command: dumpsys wifi | grep 'Wi-Fi is'", ln=1, align="L")
+    pdf.multi_cell(200, 5, txt="The command shown above, was executed. It returns a string indicating if the wifi is enabled. In this case the command returned 'Wi-Fi is enabled'")
 
     pdf.cell(200, 20, txt="4. Using ADB, activate the device's rotation lock.  ", ln=1, align="L")
-    pdf.cell(200, 20,
+    pdf.cell(200, 10,
              txt="Command: adb shell input touchscreen swipe 400 20 400 800 1000",
              ln=1, align="L")
     pdf.image(f"./images/rotation_lock_1.png", w=60)
-    pdf.multi_cell(200, 5,
+    pdf.multi_cell(200, 10,
              txt="Command: adb shell content insert --uri content://settings/system --bind name:s:accelerometer_rotation --bind value:i:0")
     pdf.image(f"./images/rotation_lock_2.png", w=60)
 
     pdf.cell(200, 20, txt="5. Using ADB, launch the contacts app and add a new contact to the contact's list.", ln=1,
              align="L")
-    pdf.cell(200, 20, txt="Command: adb shell input keyevent 207", ln=1,
+    pdf.cell(200, 10, txt="Command: adb shell input keyevent 207", ln=1,
              align="L")
     pdf.image(f"./images/contacts_1.png", w=60)
-    pdf.multi_cell(200, 5, txt="Command: adb shell am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name 'Bo Lawson' -e phone 123456789")
+    pdf.multi_cell(200, 10, txt="Command: adb shell am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name 'Bo Lawson' -e phone 123456789")
     pdf.image(f"./images/contacts_2.png", w=60)
     pdf.cell(200, 20, txt="Command: adb shell input tap 900 80", ln=1,
              align="L")
@@ -283,39 +278,36 @@ def createPDF():
     pdf.cell(200, 20, txt="QUESTION 2", ln=1, align="L")
     pdf.cell(200, 10, txt="1. Go to the home menu and click on the first app available on the launcher, all via ADB.",
              ln=1, align="L")
-    pdf.cell(200, 20, txt="Command: adb shell input keyevent 3", ln=1,
+    pdf.cell(200, 10, txt="Command: adb shell input keyevent 3", ln=1,
              align="L")
     pdf.image(f"./images/home_3.png", w=60)
-    pdf.multi_cell(200, 5,
+    pdf.multi_cell(200, 10,
              txt="Command: adb shell am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n com.google.android.apps.maps/com.google.android.maps.MapsActivity")
     pdf.image(f"./images/google_maps_2.png", w=60)
 
-    pdf.cell(200, 10, txt="2. Using ADB, lower the device's volume.",
-             ln=1, align="L")
-    pdf.cell(200, 10, txt="Command: adb shell keyevent 25",
-             ln=1, align="L")
+    pdf.cell(200, 10, txt="2. Using ADB, lower the device's volume.", ln=1, align="L")
+    pdf.cell(200, 10, txt="Command: adb shell keyevent 25", ln=1, align="L")
     pdf.image(f"./images/volume.png", w=60)
 
-    pdf.cell(200, 10, txt="3. Using ADB, open the notes app (or any app with text input) and write your name.",
-             ln=1, align="L")
-    pdf.multi_cell(200, 5, txt="Command: adb shell am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n com.google.android.dialer/com.google.android.dialer.extensions.GoogleDialtactsActivity")
+    pdf.cell(200, 10, txt="3. Using ADB, open the notes app (or any app with text input) and write your name.", ln=1, align="L")
+    pdf.multi_cell(200, 10, txt="Command: adb shell am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n com.google.android.dialer/com.google.android.dialer.extensions.GoogleDialtactsActivity")
     pdf.image(f"./images/phone.png", w=50, h=100)
-    pdf.cell(200, 10, txt="Command: adb shell input tap 500 90",
-             ln=1, align="L")
+    pdf.cell(200, 10, txt="Command: adb shell input tap 500 90",ln=1, align="L")
     pdf.image(f"./images/phone_2.png", w=60)
     pdf.cell(200, 10, txt="Command: adb shell input text 'Juan Esteban Mendez'",
              ln=1, align="L")
     pdf.image(f"./images/phone_3.png", w=60)
 
-    pdf.cell(200, 10, txt="4. Using ADB, turn on bluetooth.",
-             ln=1, align="L")
+    pdf.cell(200, 10, txt="4. Using ADB, turn on bluetooth.",ln=1, align="L")
+    pdf.cell(200, 10, txt="Command: adb shell am start -a android.bluetooth.adapter.action.REQUEST_ENABLE", ln=1, align="L")
+    pdf.multi_cell(200, 5, txt="Given that for this report an emulator was used, a screenshot of the command working wasn't able to be taken. Although, if the script is ran with an actual android device, is is guaranteed it will work.")
 
     pdf.cell(200, 10, txt="5. Using ADB, launch the contacts app and add a new contact to the contact's list.",
              ln=1, align="L")
     pdf.cell(200, 10, txt="Command: adb shell input keyevent 207",
              ln=1, align="L")
     pdf.image(f"./images/contacts_5.png", w=60)
-    pdf.multi_cell(200, 5, txt="Command: adb shell am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name 'Pedro Rosales' -e phone 3112142706")
+    pdf.multi_cell(200, 10, txt="Command: adb shell am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name 'Pedro Rosales' -e phone 3112142706")
     pdf.image(f"./images/contacts_6.png", w=60)
     pdf.cell(200, 10, txt="Command: adb shell input tap 900 80",
              ln=1, align="L")
@@ -328,7 +320,6 @@ def createPDF():
     pdf.cell(200, 10, txt="Command: adb uninstall com.andminuniandes",
              ln=1, align="L")
     pdf.image(f"./images/apk_uninstalled_2.png", w=60)
-
 
     pdf.output("report.pdf")
 
