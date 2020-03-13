@@ -43,6 +43,160 @@ def uninstallAPK(device):
     take_screenshot(device, "apk_uninstalled_2")
 
 
+def event_one(device):
+    device.shell(f"am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n {GOOGLE_MAPS_ACTIVITY}")
+    sleep(2)  # Sleep, so that there is time to take the screenshot if the command is delayed
+    take_screenshot(device, "google_maps_1")
+
+def event_two(device):
+    sleep(1)
+    # For going back 'home'
+    device.shell("input keyevent 3")
+    # For long pressing the app icons
+    # print(device.shell("wm density"))
+    device.shell("input touchscreen swipe 200 1700 200 1700 2000")
+    sleep(2)
+    take_screenshot(device, "long_press_1")
+
+    device.shell("input keyevent 3")
+
+    device.shell("input touchscreen swipe 350 1700 350 1700 2000")
+    sleep(2)
+    take_screenshot(device, "long_press_2")
+
+    device.shell("input keyevent 3")
+
+    device.shell("input touchscreen swipe 500 1700 500 1700 2000")
+    sleep(2)
+    take_screenshot(device, "long_press_3")
+
+
+def event_three(device):
+    device.shell("input keyevent 3")
+    # Check the wifi status of the emulator
+    print(device.shell("dumpsys wifi | grep 'Wi-Fi is'"))
+
+
+def event_four(device):
+    # Activating device rotation lock
+    device.shell("input touchscreen swipe 400 20 400 800 1000")
+    take_screenshot(device, "rotation_lock_1")
+
+    sleep(1)
+    print(device.shell(
+        "content insert --uri content://settings/system --bind name:s:accelerometer_rotation --bind value:i:0"))
+    # Screenshot of lock working
+    sleep(2)
+    take_screenshot(device, "rotation_lock_2")
+
+
+def event_five(device):
+    device.shell("input keyevent 3")
+    sleep(2)
+
+    # Launch the contacts app and add a new contact
+    device.shell("input keyevent 207")
+    sleep(1)  # Sleep, so that there is time to take the screenshot if the command is delayed
+    take_screenshot(device, "contacts_1")
+
+    device.shell(
+        "am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name 'Bo Lawson' -e phone 123456789")
+    device.shell("input keyevent 122")
+    sleep(2)  # Sleep, so that there is time to take the screenshot if the command is delayed
+    take_screenshot(device, "contacts_2")
+
+    # print(device.shell("wm size"))
+    device.shell("input tap 900 80")
+    sleep(2)
+    take_screenshot(device, "contacts_3")
+
+    device.shell("input keyevent 4")
+    sleep(1)
+    take_screenshot(device, "contacts_4")
+
+
+def event_six(device):
+    device.shell("input keyevent 3")
+    # QUESTION 2
+    # Launch first app available in home screen
+    sleep(1)
+    take_screenshot(device, "home_3")
+
+    # Launches an app (Check if I wanna open Google Maps)
+    device.shell(f"am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n {GOOGLE_MAPS_ACTIVITY}")
+    sleep(2)
+    take_screenshot(device, "google_maps_2")
+
+
+def event_seven(device):
+    # Lower device volume
+    device.shell("input keyevent 25")
+    device.shell("input keyevent 25")
+    take_screenshot(device, "volume")
+    # Sleep for the volume widget to dissapear without causing any trouble
+    sleep(4)
+
+
+def event_eight(device):
+    # Launch any app with text input and write my name (Telephone)
+    device.shell(f"am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n {PHONE}")
+    sleep(2)
+    take_screenshot(device, "phone")
+
+    # Input name
+    device.shell("input tap 500 90")
+    sleep(1)
+    take_screenshot(device, "phone_2")
+
+    device.shell("input text 'Juan Esteban Mendez'")
+    sleep(3)
+    take_screenshot(device, "phone_3")
+
+
+def event_nine(device):
+    # Turn bluetooth on (It is not supported on emulator)
+    # The following line must be uncommented when the script is run using a real device
+    # device.shell("am start -a android.bluetooth.adapter.action.REQUEST_ENABLE")
+    return
+
+def event_ten(device):
+    # Launch contacts app and add a new contact
+    device.shell("input keyevent 207")
+    sleep(2)
+    take_screenshot(device, "contacts_5")
+
+    device.shell(
+        "am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name 'Pedro Rosales' -e phone 3112142706")
+    sleep(2)
+    take_screenshot(device, "contacts_6")
+
+    device.shell("input tap 900 80")
+    sleep(2)
+    take_screenshot(device, "contacts_7")
+    device.shell("input keyevent 4")
+    sleep(2)
+    take_screenshot(device, "contacts_8")
+
+
+def execute_event(num, device):
+    switcher = {
+        1: event_one,
+        2: event_two,
+        3: event_three,
+        4: event_four,
+        5: event_five,
+        6: event_six,
+        7: event_seven,
+        8: event_eight,
+        9: event_nine,
+        10: event_ten
+    }
+    # Get the function from the switcher dictionary
+    func = switcher.get(num, lambda: "Invalid event id")
+    # Execute the function
+    func(device)
+
+
 def main(n):
     eventCount = 0
 
@@ -75,158 +229,13 @@ def main(n):
     # Screenshot of the homescreen
     take_screenshot(device, "home_2")
 
-    # Launches an app (Check if I wanna open Google Maps)
-    device.shell(f"am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n {GOOGLE_MAPS_ACTIVITY}")
-    sleep(2)  # Sleep, so that there is time to take the screenshot if the command is delayed
-    take_screenshot(device, "google_maps_1")
-    eventCount += 1
-    if check_event_count(n, eventCount):
-        return device
-    sleep(1)
-
-    # For going back 'home'
-    device.shell("input keyevent 3")
-    # For long pressing the app icons
-    #print(device.shell("wm density"))
-    device.shell("input touchscreen swipe 200 1700 200 1700 2000")
-    sleep(2)
-    take_screenshot(device, "long_press_1")
+    while eventCount < n:
+        execute_event(eventCount + 1, device)
+        eventCount += 1
 
     device.shell("input keyevent 3")
 
-    device.shell("input touchscreen swipe 350 1700 350 1700 2000")
-    sleep(2)
-    take_screenshot(device, "long_press_2")
-
-    device.shell("input keyevent 3")
-
-    device.shell("input touchscreen swipe 500 1700 500 1700 2000")
-    sleep(2)
-    take_screenshot(device, "long_press_3")
-
-    eventCount += 1
-    if check_event_count(n, eventCount):
-        return device
-    device.shell("input keyevent 3")
-
-    # Check the wifi status of the emulator
-    print(device.shell("dumpsys wifi | grep 'Wi-Fi is'"))
-    eventCount += 1
-    if check_event_count(n, eventCount):
-        return device
-
-    # Activating device rotation lock
-    device.shell("input touchscreen swipe 400 20 400 800 1000")
-    take_screenshot(device, "rotation_lock_1")
-
-    sleep(1)
-    print(device.shell(
-        "content insert --uri content://settings/system --bind name:s:accelerometer_rotation --bind value:i:0"))
-    # Screenshot of lock working
-    sleep(2)
-    take_screenshot(device, "rotation_lock_2")
-    eventCount += 1
-    if check_event_count(n, eventCount):
-        return device
-
-    sleep(1)
-    device.shell("input keyevent 3")
-    sleep(2)
-
-    # Launch the contacts app and add a new contact
-    device.shell("input keyevent 207")
-    sleep(1)  # Sleep, so that there is time to take the screenshot if the command is delayed
-    take_screenshot(device, "contacts_1")
-
-    device.shell(
-        "am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name 'Bo Lawson' -e phone 123456789")
-    device.shell("input keyevent 122")
-    sleep(2)  # Sleep, so that there is time to take the screenshot if the command is delayed
-    take_screenshot(device, "contacts_2")
-
-    #print(device.shell("wm size"))
-    device.shell("input tap 900 80")
-    sleep(2)
-    take_screenshot(device, "contacts_3")
-    eventCount += 1
-    if check_event_count(n, eventCount):
-        return device
-
-    device.shell("input keyevent 4")
-    sleep(1)
-    take_screenshot(device, "contacts_4")
-
-    device.shell("input keyevent 3")
-
-    # QUESTION 2
-    #Launch first app available in home screen
-    sleep(1)
-    take_screenshot(device, "home_3")
-
-    # Launches an app (Check if I wanna open Google Maps)
-    device.shell(f"am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n {GOOGLE_MAPS_ACTIVITY}")
-    sleep(2)
-    take_screenshot(device, "google_maps_2")
-    eventCount += 1
-    if check_event_count(n, eventCount):
-        return device
-
-    # Lower device volume
-    device.shell("input keyevent 25")
-    device.shell("input keyevent 25")
-    take_screenshot(device, "volume")
-    eventCount += 1
-    if check_event_count(n, eventCount):
-        return device
-
-    sleep(4)
-    # Launch any app with text input and write my name (Telephone)
-    device.shell(f"am start -c api.android.intent.LAUNCHER -a api.android.category.MAIN -n {PHONE}")
-    sleep(2)
-    take_screenshot(device, "phone")
-
-    # Input name
-    device.shell("input tap 500 90")
-    sleep(1)
-    take_screenshot(device, "phone_2")
-
-    device.shell("input text 'Juan Esteban Mendez'")
-    sleep(3)
-    take_screenshot(device, "phone_3")
-    eventCount += 1
-    if check_event_count(n, eventCount):
-        return device
-
-    # Turn bluetooth on (It is not supported on emulator)
-    # The following line must be uncommented when the script is run using a real device
-    eventCount += 1
-    if check_event_count(n, eventCount):
-        return device
-
-    #device.shell("am start -a android.bluetooth.adapter.action.REQUEST_ENABLE")
-
-    # Launch contacts app and add a new contact
-    device.shell("input keyevent 207")
-    sleep(2)
-    take_screenshot(device, "contacts_5")
-
-    device.shell(
-        "am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name 'Pedro Rosales' -e phone 3112142706")
-    sleep(2)
-    take_screenshot(device, "contacts_6")
-
-    device.shell("input tap 900 80")
-    sleep(2)
-    take_screenshot(device, "contacts_7")
-    device.shell("input keyevent 4")
-    sleep(2)
-    take_screenshot(device, "contacts_8")
-    eventCount += 1
-    if check_event_count(n, eventCount):
-        return device
-
-    device.shell("input keyevent 3")
-
+    return device
 
 def writeHeader(pdf):
     pdf.set_font("Arial", size=12)
@@ -465,6 +474,6 @@ if __name__ == "__main__":
         n = 10
     device = main(n)
     uninstallAPK(device)
-    print("Commands execution finished")
+    print("ADB commands execution finished")
     pdf = createPDF(n)
     finishPDF(pdf, n)

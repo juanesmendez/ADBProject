@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="adb9bfa2-d956-48f8-8587-86858fc76532" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/images/andmin.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/andmin.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/images/apk_installed.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/apk_installed.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/images/apk_uninstalled.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/apk_uninstalled.png" afterDir="false" />
@@ -20,9 +19,6 @@
       <change beforePath="$PROJECT_DIR$/images/home_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/home_1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/images/home_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/home_2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/images/home_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/home_3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/image_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/image_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/image_3.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/images/long_press_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/long_press_1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/images/long_press_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/long_press_2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/images/long_press_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/long_press_3.png" afterDir="false" />
@@ -33,7 +29,6 @@
       <change beforePath="$PROJECT_DIR$/images/rotation_lock_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/rotation_lock_2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/images/volume.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/volume.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/report.pdf" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,8 +41,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="61">
-              <caret line="441" selection-start-line="441" selection-end-line="441" />
+            <state relative-caret-position="364">
+              <caret line="239" column="21" lean-forward="true" selection-start-line="239" selection-start-column="21" selection-end-line="239" selection-end-column="21" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -63,6 +58,7 @@
       <find>blueto</find>
       <find>wifi</find>
       <find>lawson</find>
+      <find>commands e</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -77,9 +73,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="720" />
     <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="826" />
+    <option name="width" value="720" />
+    <option name="height" value="825" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -173,7 +170,7 @@
       <workItem from="1583936271528" duration="316000" />
       <workItem from="1583948450410" duration="242000" />
       <workItem from="1584028862470" duration="851000" />
-      <workItem from="1584046582140" duration="6309000" />
+      <workItem from="1584046582140" duration="11489000" />
     </task>
     <task id="LOCAL-00001" summary="Improved the pdf format that is generated via source code.">
       <created>1583883791303</created>
@@ -186,13 +183,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43394000" />
+    <option name="totallyTimeSpent" value="48574000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1440" height="826" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="825" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49796748" visible="true" weight="0.19170243" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49796748" visible="true" weight="0.19170243" />
       <window_info id="Structure" order="2" sideWeight="0.5020325" side_tool="true" weight="0.24964234" />
       <window_info anchor="bottom" id="Database Changes" order="0" />
       <window_info anchor="bottom" id="Terminal" order="1" weight="0.32970026" />
@@ -202,7 +200,7 @@
       <window_info anchor="bottom" id="Docker" order="5" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.32833788" />
-      <window_info anchor="bottom" id="Run" order="8" visible="true" weight="0.32833788" />
+      <window_info active="true" anchor="bottom" id="Run" order="8" visible="true" weight="0.32742155" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.39918256" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
@@ -262,7 +260,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="Improved the pdf format that is generated via source code." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ADBProject$main.coverage" NAME="main Coverage Results" MODIFIED="1584054851934" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ADBProject$main.coverage" NAME="main Coverage Results" MODIFIED="1584061698644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/image_2.png" />
@@ -323,8 +321,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="441" selection-start-line="441" selection-end-line="441" />
+        <state relative-caret-position="364">
+          <caret line="239" column="21" lean-forward="true" selection-start-line="239" selection-start-column="21" selection-end-line="239" selection-end-column="21" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
